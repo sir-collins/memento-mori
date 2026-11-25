@@ -38,3 +38,17 @@ looked like a hang.
 
 **Lesson:** for project rules to survive, they need to live in the project
 (`CLAUDE.md`), not in tool memory tied to one folder.
+
+## 2026-11-25: Project 0, publishing to GitHub
+
+All the setup files went into `main` as a single commit
+(`Add initial project structure and documentation`) instead of the planned
+"initial commit + setup PR". That's fine for a repo's first commit: there's
+no `main` on the remote yet for a PR to target. The repo is public at
+`sir-collins/memento-mori`. This wrap-up (ticking the last box) is the first
+change that goes through the normal branch → PR → merge flow.
+
+**Gotcha: `gh repo create` needs a visibility flag when run non-interactively.**
+Run via `!` inside Claude Code, `gh` can't show its prompts, so it fails with
+"`--public`, `--private`, or `--internal` required". Pass the flag (and
+`--push` to push `main` in the same command).
