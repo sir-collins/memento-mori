@@ -52,3 +52,36 @@ change that goes through the normal branch → PR → merge flow.
 Run via `!` inside Claude Code, `gh` can't show its prompts, so it fails with
 "`--public`, `--private`, or `--internal` required". Pass the flag (and
 `--push` to push `main` in the same command).
+
+## 2026-11-28: Project 0, rebuilding on WSL
+
+The Intel Mac crashed, so the project moved to WSL2 (Ubuntu 26.04) on a
+fresh clone. The repo itself was safe on GitHub, which is the whole point
+of publishing early. Only the tools had to come back. git, `gh` (already
+logged in), node and npm were present; Go was the one gap.
+
+**Why the official tarball, not `apt install golang`.** Ubuntu's Go package
+often lags behind the current release. A Go toolchain is just one
+self-contained folder, so go.dev's recommended install is: download the
+tarball, check its SHA-256 against the one go.dev publishes, unpack it into
+`/usr/local/go`, and put it on `PATH`. Upgrading later is "delete the folder,
+unpack the new one". We matched the Mac's version (1.27.4).
+
+**GOROOT vs GOPATH.** `GOROOT` (`/usr/local/go`) is where Go *itself* lives:
+compiler and standard library. `GOPATH` (`~/go`) is where Go keeps
+downloaded modules and, in `~/go/bin`, binaries from `go install`. That's
+why both `bin` folders went onto `PATH` in `~/.bashrc`. Since Go modules,
+your own code does *not* need to live inside GOPATH.
+
+**Gotcha: `sudo` doesn't work through Claude Code's `!` prefix.** `!`
+runs commands without an interactive terminal, so sudo fails with "A
+terminal is required to authenticate". Anything that asks for a password
+has to run in a separate WSL terminal.
+
+**Gotcha: a wrapped paste becomes two commands.** The long scratchpad path
+wrapped onto a second line when pasted, so bash tried to *execute* the
+tarball ("Permission denied"). The fix was to move the file to
+`~/Downloads` so the command fits on one line.
+
+**Deferred:** `golangci-lint` gets installed in Project 1, when linting
+comes up on the roadmap.

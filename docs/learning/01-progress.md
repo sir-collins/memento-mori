@@ -13,6 +13,12 @@ Tracking status against [00-roadmap.md](./00-roadmap.md).
 - [x] GitHub repo `sir-collins/memento-mori` (public). Everything landed on `main`
       as one commit; `gh repo create --public --source=. --remote=origin --push`
       published it. This wrap-up went through branch `project-0-step-1-setup-wrapup` + PR
+- [x] Rebuilt the dev environment on WSL2 (Ubuntu 26.04, x86_64) after the Intel
+      Mac died: re-cloned to `~/projects/memento-mori`; git, gh (logged in),
+      node 26/npm 11 were already present. Go `go1.27.4 linux/amd64` installed from
+      the official go.dev tarball (SHA-256 verified) into `/usr/local/go`;
+      `~/.bashrc` adds `/usr/local/go/bin` and `$HOME/go/bin` to `PATH`.
+      `golangci-lint` deferred until Project 1 needs it
 
 ## Project 1: Go Foundations & the Pure Domain ← up next
 
